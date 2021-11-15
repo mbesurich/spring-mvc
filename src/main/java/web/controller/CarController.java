@@ -6,29 +6,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import web.dao.CarDAO;
+import web.dao.CarDAOimpl;
 
 @Controller
 @RequestMapping("/cars")
 public class CarController {
 
-    private CarDAO carDAO;
+    private CarDAOimpl carDAOimpl;
 
     @Autowired
-    public CarController(CarDAO carDAO) {
-        this.carDAO = carDAO;
+    public CarController(CarDAOimpl carDAOimpl) {
+        this.carDAOimpl = carDAOimpl;
     }
 
     @GetMapping()
     public String getAllCars(Model model){
-        model.addAttribute("allCars", carDAO.showAllCars());
+        model.addAttribute("allCars", carDAOimpl.showAllCars());
         return "/allCars";
     }
 
     @GetMapping("/{count}")
     public String getSomeCars(@PathVariable("count") int count, Model model) {
-        model.addAttribute("someCars", carDAO.showSomeCars(count));
+        model.addAttribute("someCars", carDAOimpl.showSomeCars(count));
         return "/someCars";
     }
 

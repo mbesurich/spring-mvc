@@ -1,11 +1,10 @@
-package web.dao;
+package web.service;
 
 import web.model.Car;
 
 import java.util.List;
 
-public interface CarDAO {
-
+public interface CarService {
     List<Car> showSomeCars(int quantity);
     List<Car> showAllCars();
 }

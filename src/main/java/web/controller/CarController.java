@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import web.dao.CarDAOimpl;
 
 @Controller
@@ -20,13 +20,7 @@ public class CarController {
     }
 
     @GetMapping()
-    public String getAllCars(Model model){
-        model.addAttribute("allCars", carDAOimpl.showAllCars());
-        return "/allCars";
-    }
-
-    @GetMapping("/{count}")
-    public String getSomeCars(@PathVariable("count") int count, Model model) {
+    public String getSomeCars(@RequestParam(required = false, defaultValue = "2147483647") int count, Model model) {
         model.addAttribute("someCars", carDAOimpl.showSomeCars(count));
         return "/someCars";
     }

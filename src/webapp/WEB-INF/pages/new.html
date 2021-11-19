@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>new</title>
+    <title>New person</title>
 </head>
 <body>
-<h1>new-------------</h1>
+
+<form th:method="POST" th:action="@{/save}" th:object="${user}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="surName">Enter name: </label>
+    <input type="text" th:field="*{surName}" id="surName"/>
+    <br/>
+    <label for="email">Enter name: </label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <br/>
+
+    <input type="submit" value="Create new user"/>
+</form>
+
+<!--<div align="center">
+    <h2>New User</h2>
+    <form action="save" th:action="@{/save}" th:object="${user}" method="POST">
+        <table border="0" cellpadding="5">
+            <tr>
+                <td>Name: </td>
+                <td><input type="text" th:field="*{name}"/></td>
+            </tr>
+            <tr>
+                <td>surName: </td>
+                <td><input type="text" th:field="*{surName}"/></td>
+            </tr>
+            <tr>
+                <td>email: </td>
+                <td><input type="text" th:field="*{email}"/></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Save"></td>
+            </tr>
+        </table>
+    </form>
+</div>-->
 </body>
 </html>

@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserDAOimpl implements UserDao{
+public class UserDaoImp implements UserDao{
 
     private EntityManagerFactory entityManagerFactory;
     private List<User> users = null;
 
     @Autowired
-    public UserDAOimpl(EntityManagerFactory entityManagerFactory) {
+    public UserDaoImp(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
@@ -52,16 +52,39 @@ public class UserDAOimpl implements UserDao{
     }
 
     @Override
-    public List<User> show(int quantity) {
+    public List<User> show() {
         EntityManager em = null;
         EntityTransaction transaction = null;
         try {
             em = entityManagerFactory.createEntityManager();
             transaction = em.getTransaction();
             transaction.begin();
-            users = em.createQuery("From User").getResultList();
+            users = em.createQuery("SELECT u FROM User u").getResultList();
 
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+        } finally {
 
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+            return users;
+    }
+
+    @Override
+    public User getUser(int id) {
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        User user = null;
+        try {
+            em = entityManagerFactory.createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
+            user = em.find(User.class, id);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
@@ -72,20 +95,34 @@ public class UserDAOimpl implements UserDao{
                 em.close();
             }
         }
-        if (quantity > users.size()) {
-            return users;
-        } else {
-            return users.subList(0, quantity);
-        }
+        return user;
     }
 
     @Override
-    public void update(Long id) {
-
+    public void update(int id) {
+//        EntityManager em = null;
+//        EntityTransaction transaction = null;
+//        try {
+//            em = entityManagerFactory.createEntityManager();
+//            transaction = em.getTransaction();
+//            transaction.begin();
+//
+//            User user = em.find(User.class, id);
+//            user.
+//            transaction.commit();
+//        } catch (Exception e) {
+//            if (transaction != null && transaction.isActive()) {
+//                transaction.rollback();
+//            }
+//        } finally {
+//            if (em != null && em.isOpen()) {
+//                em.close();
+//            }
+//        }
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(int id) {
         EntityManager em = null;
         EntityTransaction transaction = null;
         try {
@@ -105,6 +142,5 @@ public class UserDAOimpl implements UserDao{
                 em.close();
             }
         }
-    }
     }
 }

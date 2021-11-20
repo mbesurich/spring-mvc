@@ -7,7 +7,7 @@
 </head>
 <body>
 <div align="center">
-    <h2>User Manager</h2>
+    <h2>Wellcome to this site</h2>
     <h3><a href="/new">New User</a></h3>
     <table border="1" cellpadding="5">
         <thead>
@@ -21,12 +21,15 @@
         <tbody>
         <tr th:each="user : ${users}">
             <td th:text="${user.getName()}"/>
+<!--            <td th:href="@{/user/{id}(id=${user.id})}"><p th:text="${user.getName()}"/></td>-->
             <td th:text="${user.getSurName()}"/>
             <td th:text="${user.getEmail()}"/>
             <td>
                 <a th:href="@{/edit/{id}(id=${user.id})}">Edit</a>
 
                 <a th:href="@{/delete/{id}(id=${user.id})}">Delete</a>
+
+                <a th:href="@{/user/{id}(id=${user.id})}">show user</a>
             </td>
         </tr>
         </tbody>

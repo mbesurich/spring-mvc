@@ -8,39 +8,19 @@
 
 <form th:method="POST" th:action="@{/save}" th:object="${user}">
     <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
+    <input type="text" th:field="*{name}" id="name" placeholder = "Enter name here"/>
     <br/>
-    <label for="surName">Enter name: </label>
-    <input type="text" th:field="*{surName}" id="surName"/>
+    <label for="surName">Enter surName: </label>
+    <input type="text" th:field="*{surName}" id="surName" placeholder = "Enter surName here"/>
     <br/>
-    <label for="email">Enter name: </label>
-    <input type="text" th:field="*{email}" id="email"/>
+    <label for="email">Enter email: </label>
+    <input type="text" th:field="*{email}" id="email" placeholder = "Enter email here"/>
     <br/>
 
     <input type="submit" value="Create new user"/>
 </form>
-
-<!--<div align="center">
-    <h2>New User</h2>
-    <form action="save" th:action="@{/save}" th:object="${user}" method="POST">
-        <table border="0" cellpadding="5">
-            <tr>
-                <td>Name: </td>
-                <td><input type="text" th:field="*{name}"/></td>
-            </tr>
-            <tr>
-                <td>surName: </td>
-                <td><input type="text" th:field="*{surName}"/></td>
-            </tr>
-            <tr>
-                <td>email: </td>
-                <td><input type="text" th:field="*{email}"/></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" value="Save"></td>
-            </tr>
-        </table>
-    </form>
-</div>-->
+<br>
+<br>
+<a th:href="@{/}">Show all</a>
 </body>
 </html>

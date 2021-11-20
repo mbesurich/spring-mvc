@@ -21,15 +21,6 @@ public class UserDaoImp implements UserDao{
         this.entityManagerFactory = entityManagerFactory;
     }
 
-//
-//    {
-//        users = new ArrayList<>();
-//        users.add(new User("BMW", "1", "100"));
-//        users.add(new User("BMW2", "2", "6"));
-//        users.add(new User("BMW3", "3", "7"));
-//        users.add(new User("BMW4", "4", "8"));
-//    }
-
     @Override
     public void add(User user) {
         EntityManager em = null;
@@ -38,7 +29,12 @@ public class UserDaoImp implements UserDao{
             em = entityManagerFactory.createEntityManager();
             transaction = em.getTransaction();
             transaction.begin();
-            em.persist(user);
+
+            if (user.getId() == null) {
+                em.persist(user);
+            } else {
+                em.merge(user);
+            }
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
@@ -60,7 +56,6 @@ public class UserDaoImp implements UserDao{
             transaction = em.getTransaction();
             transaction.begin();
             users = em.createQuery("SELECT u FROM User u").getResultList();
-
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
@@ -76,7 +71,7 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUser(Long id) {
         EntityManager em = null;
         EntityTransaction transaction = null;
         User user = null;
@@ -99,7 +94,7 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public void update(int id) {
+    public void update(Long id) {
 //        EntityManager em = null;
 //        EntityTransaction transaction = null;
 //        try {
@@ -122,7 +117,7 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(Long id) {
         EntityManager em = null;
         EntityTransaction transaction = null;
         try {

@@ -41,13 +41,13 @@ public class UserController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editUserForm(@PathVariable("id") int id, Model model) {
+    public String editUserForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.getUser(id));
         return "update";
     }
 
     @PostMapping(value = "/update/{id}")
-    public String editUserPost(@PathVariable("id") int id, User user, BindingResult result, Model model) {
+    public String editUserPost(@PathVariable("id") Long id, User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             user.setId(id);
             return "update";
@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @RequestMapping("/delete/{id}")
-    public String deleteUserForm(@PathVariable("id") int id) {
+    public String deleteUserForm(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/";
     }

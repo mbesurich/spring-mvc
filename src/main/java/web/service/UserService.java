@@ -1,5 +1,7 @@
 package web.service;
 
+import org.springframework.transaction.annotation.Transactional;
+import web.model.Role;
 import web.model.User;
 
 import java.util.List;
@@ -10,4 +12,7 @@ public interface UserService {
     User getUser(Long id);
     void update(Long id);
     void delete(Long id);
+
+    @Transactional
+    Role getByRoleName(String roleName);
 }

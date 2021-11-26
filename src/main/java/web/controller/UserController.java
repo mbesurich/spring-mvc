@@ -37,7 +37,8 @@ public class UserController {
     }
 
 //    creating start------------------------------------------------------------
-    @RequestMapping("/new")
+//    @RequestMapping("/new")
+    @GetMapping("/new")
     public String newUserForm(Model model) {
         model.addAttribute("user", new User());
         return "new";
@@ -69,14 +70,16 @@ public class UserController {
     }
 //    updating end------------------------------------------------------------
 
-    @RequestMapping("/delete/{id}")
+//    @RequestMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteUserForm(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/";
     }
 
 //    Sprint Security - start --------------------------------------------------
-    @RequestMapping(value = "hello", method = RequestMethod.GET)
+//    @RequestMapping(value = "hello", method = RequestMethod.GET)
+    @GetMapping("/hello")
     public String printWelcome(ModelMap model) {
         List<String> messages = new ArrayList<>();
         messages.add("Hello!");
@@ -86,7 +89,8 @@ public class UserController {
         return "hello";
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.GET)
+//    @RequestMapping(value = "login", method = RequestMethod.GET)
+    @GetMapping("/login")
     public String loginPage() {
         return "login";
     }

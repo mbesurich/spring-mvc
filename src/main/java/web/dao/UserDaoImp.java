@@ -1,7 +1,9 @@
 package web.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
+import web.model.Role;
 import web.model.User;
 
 import javax.persistence.EntityManager;
@@ -137,5 +139,15 @@ public class UserDaoImp implements UserDao{
                 em.close();
             }
         }
+    }
+
+    @Override
+    public Role getByRoleName(String role) {
+        return null;
+    }
+
+    @Override
+    public UserDetails getByEmail(String email) {
+        return null;
     }
 }

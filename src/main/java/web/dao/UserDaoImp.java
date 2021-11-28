@@ -9,6 +9,7 @@ import web.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,29 +97,6 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public void update(Long id) {
-//        EntityManager em = null;
-//        EntityTransaction transaction = null;
-//        try {
-//            em = entityManagerFactory.createEntityManager();
-//            transaction = em.getTransaction();
-//            transaction.begin();
-//
-//            User user = em.find(User.class, id);
-//            user.
-//            transaction.commit();
-//        } catch (Exception e) {
-//            if (transaction != null && transaction.isActive()) {
-//                transaction.rollback();
-//            }
-//        } finally {
-//            if (em != null && em.isOpen()) {
-//                em.close();
-//            }
-//        }
-    }
-
-    @Override
     public void delete(Long id) {
         EntityManager em = null;
         EntityTransaction transaction = null;
@@ -147,7 +125,27 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public UserDetails getByEmail(String email) {
-        return null;
+    public User getByEmail(String email) {
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        User user = null;
+        try {
+            em = entityManagerFactory.createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE   u.email LIKE :email", User.class);
+            query.setParameter("email", email);
+            user = query.getSingleResult();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+        return user;
     }
 }

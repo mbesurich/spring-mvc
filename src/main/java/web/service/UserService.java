@@ -10,7 +10,6 @@ public interface UserService {
     void add(User user);
     List<User> show();
     User getUser(Long id);
-    void update(Long id);
     void delete(Long id);
 
     @Transactional

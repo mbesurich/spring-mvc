@@ -43,12 +43,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public void update(Long id) {
-        userDao.update(id);
-    }
-
-    @Transactional
-    @Override
     public void delete(Long id) {
         userDao.delete(id);
     }
@@ -62,6 +56,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userDao.getByEmail(email);
+        User user = userDao.getByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException(email + "is not found");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getAuthorities());
     }
 }

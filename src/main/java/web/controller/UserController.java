@@ -8,14 +8,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserService;
-import web.service.UserServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Controller
-@RequestMapping("/")
+//@RequestMapping("/")
 public class UserController {
 
     private UserService userService;
@@ -23,6 +22,12 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/admin")
+    public String allUsers(ModelMap model) {
+        model.addAttribute("users", userService.show());
+        return "admin";
     }
 
     @GetMapping(value = "/")
@@ -91,9 +96,17 @@ public class UserController {
     }
 
 //    @RequestMapping(value = "login", method = RequestMethod.GET)
+//    @GetMapping("/login")
+//    public String loginPage() {
+//        return "login";
+//    }
     @GetMapping("/login")
-    public String loginPage() {
-        return "login";
+    public String login (@RequestParam(value = "error", required = false) String error) {
+        if (error != null) {
+            return "error";
+        } else {
+            return "login";
+        }
     }
 
 //    Sprint Security - finish --------------------------------------------------

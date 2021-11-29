@@ -14,7 +14,7 @@ import web.model.User;
 import java.util.List;
 
 @Service
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserDao userDao;

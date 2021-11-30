@@ -14,7 +14,8 @@ import web.model.User;
 import java.util.List;
 
 @Service
-@EnableTransactionManagement(proxyTargetClass = true)
+//@EnableTransactionManagement(proxyTargetClass = true)
+@EnableTransactionManagement
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserDao userDao;
@@ -57,6 +58,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userDao.getByEmail(email);
+        System.out.println(user);
         if (user == null) {
             throw new UsernameNotFoundException(email + "is not found");
         }

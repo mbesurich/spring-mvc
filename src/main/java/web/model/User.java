@@ -29,11 +29,6 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-//    @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH} , fetch = FetchType.EAGER)
-//    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id"))
-
-//    @ManyToMany(cascade= {CascadeType.PERSIST} , fetch = FetchType.LAZY)
     @ManyToMany(cascade= {CascadeType.PERSIST} , fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -48,12 +43,6 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
     }
-
-//    public User(String name, String surName, String email) {
-//        this.name = name;
-//        this.surName = surName;
-//        this.email = email;
-//    }
 
     public Long getId() {
         return id;
@@ -106,6 +95,8 @@ public class User implements UserDetails {
                 ", name='" + name + '\'' +
                 ", surName='" + surName + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", roleSet=" + roleSet +
                 '}';
     }
 

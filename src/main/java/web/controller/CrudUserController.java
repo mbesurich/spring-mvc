@@ -47,7 +47,7 @@ public class CrudUserController {
     @PostMapping("/save")
     public String saveCustomer(@ModelAttribute("user") User user) {
         userService.add(user);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 //    creating end------------------------------------------------------------
 

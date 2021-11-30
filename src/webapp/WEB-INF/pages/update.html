@@ -27,15 +27,51 @@
                 <td>password: </td>
                 <td><input type="text" th:field="*{password}" id="password"/></td>
             </tr>
+
+            <td>Role:</td>
+            <tr th:each="role : ${roleSet}">
+
+                <td> <input th:field="${role.name}" class="form-control"/>
+<!--                <td> <input th:value="${role.name}" th:field="*{roleSet[${iter.index}].name}"/>-->
+
+<!--                <td><input type="checkbox"
+                           th:name="|roleSet[${stat.index}]|"
+                           th:value="${role.getId()}"/>
+                </td>
+                <td th:text="${role.getId()}" ></td>
+                <td>
+                    <select name="role">
+                        <option disabled>Choose the role</option>
+                        <option>ROLE_USER</option>
+                        <option>ROLE_ADMIN</option>
+                        <option>ROLE_USER, ROLE_ADMIN</option>
+                    </select>
+                </td>-->
+            </tr>
+
+
+
+<!--            <td>Role:</td>
+            <td>
+                <select name="role">
+                    <option disabled>Choose the role</option>
+                    <option>ROLE_USER</option>
+                    <option>ROLE_ADMIN</option>
+                    <option>ROLE_USER, ROLE_ADMIN</option>
+                </select>
+            </td>-->
+
+
             <tr>
                 <td colspan="2"><input type="submit" value="Update"></td>
             </tr>
 
         </table>
     </form>
+
+    <br>
+    <br>
+    <a th:href="@{/admin/allUsers}">Show all</a>
 </div>
-<br>
-<br>
-<a th:href="@{/admin/allUsers}">Show all</a>
 </body>
 </html>

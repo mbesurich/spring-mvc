@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/save}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/save}" th:object="${user}">
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name" placeholder = "Enter name here"/>
     <br/>
@@ -16,11 +16,24 @@
     <label for="email">Enter email: </label>
     <input type="text" th:field="*{email}" id="email" placeholder = "Enter email here"/>
     <br/>
+    <br/>
+    <label for="password">Enter password: </label>
+    <input type="text" th:field="*{password}" id="password" placeholder = "Enter password here"/>
+    <br/>
+    <td>Role:</td>
+    <td>
+        <select name="role">
+            <option disabled>Choose the role</option>
+            <option>ROLE_USER</option>
+            <option>ROLE_ADMIN</option>
+            <option>ROLE_USER, ROLE_ADMIN</option>
+        </select>
+    </td>
 
     <input type="submit" value="Create new user"/>
 </form>
 <br>
 <br>
-<a th:href="@{/}">Show all</a>
+<!--<a th:href="@{/}">Show all</a>-->
 </body>
 </html>

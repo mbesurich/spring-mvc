@@ -28,13 +28,13 @@
                 <td><input type="text" th:field="*{password}" id="password"/></td>
             </tr>
 
-            <td>Role:</td>
+<!--            <td>Role:</td>
             <tr th:each="role : ${roleSet}">
 
                 <td> <input th:field="${role.name}" class="form-control"/>
-<!--                <td> <input th:value="${role.name}" th:field="*{roleSet[${iter.index}].name}"/>-->
+&lt;!&ndash;                <td> <input th:value="${role.name}" th:field="*{roleSet[${iter.index}].name}"/>&ndash;&gt;
 
-<!--                <td><input type="checkbox"
+&lt;!&ndash;                <td><input type="checkbox"
                            th:name="|roleSet[${stat.index}]|"
                            th:value="${role.getId()}"/>
                 </td>
@@ -46,9 +46,27 @@
                         <option>ROLE_ADMIN</option>
                         <option>ROLE_USER, ROLE_ADMIN</option>
                     </select>
-                </td>-->
+                </td>&ndash;&gt;
+            </tr>-->
+
+            <tr>
+                <td>Role</td>
+                <td>
+                    <th:block th:each="role , stat : ${roleSet}">
+                        <input type="checkbox" th:field="*{roleSet}" name="roleSet" th:value="${role.id]}"/>
+                        <label th:text="${role.name}" ></label>
+                    </th:block>
+                </td>
             </tr>
 
+            <tr>
+
+
+            ​<​select​ ​style​="​width: 100%​" ​multiple​ ​required​ ​size​="​2​" ​name​="​roles​" ​id​="​roles​"​>
+            ​                                  ​<​option​ ​value​="​ROLE_USER​" ​selected​>​USER​</​option​>
+        ​                                  ​<​option​ ​value​="​ROLE_ADMIN​"​>​ADMIN​</​option​>
+    ​                                ​</​select​>
+            </tr>
 
 
 <!--            <td>Role:</td>

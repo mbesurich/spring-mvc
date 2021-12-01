@@ -12,6 +12,7 @@ import web.model.Role;
 import web.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 //@EnableTransactionManagement(proxyTargetClass = true)
@@ -50,8 +51,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
-    public Role getByRoleName(String roleName) {
-        return userDao.getByRoleName(roleName);
+    public Set<Role> getAllRoles() {
+        return userDao.getAllRoles();
+    }
+
+    @Override
+    public Role getRoleById(String id) {
+        return userDao.getRoleById(id);
     }
 
     @Transactional

@@ -9,13 +9,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class UserDaoImp implements UserDao{
 
     private EntityManagerFactory entityManagerFactory;
     private List<User> users = null;
+    private Set<Role> roles = null;
 
     @Autowired
     public UserDaoImp(EntityManagerFactory entityManagerFactory) {
@@ -118,8 +121,55 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public Role getByRoleName(String role) {
-        return null;
+    public Role getRoleById(String id) {
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        Role role = null;
+        try {
+            em = entityManagerFactory.createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
+
+            TypedQuery<Role> query = em.createQuery("SELECT r FROM Role r WHERE r.name LIKE :name", Role.class);
+            query.setParameter("name", id);
+            role = query.getSingleResult();
+
+
+//            role = em.find(Role.class, id);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+        return role;
+    }
+
+    @Override
+    public Set<Role> getAllRoles() {
+        EntityManager em = null;
+        EntityTransaction transaction = null;
+        try {
+            em = entityManagerFactory.createEntityManager();
+            transaction = em.getTransaction();
+            transaction.begin();
+            roles = new HashSet<Role>(em.createQuery("SELECT r FROM Role r").getResultList());
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+        } finally {
+
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+        return roles;
     }
 
     @Override

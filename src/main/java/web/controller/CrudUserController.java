@@ -5,8 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import web.model.Role;
 import web.model.User;
 import web.service.UserService;
+
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -41,11 +45,21 @@ public class CrudUserController {
     @GetMapping("/new")
     public String newUserForm(Model model) {
         model.addAttribute("user", new User());
+
+        Set<Role> roles = userService.getAllRoles();
+        model.addAttribute("roles", roles);
+
         return "new";
     }
 
     @PostMapping("/save")
-    public String saveCustomer(@ModelAttribute("user") User user) {
+    public String saveCustomer(@ModelAttribute("user") User user/*, @ModelAttribute("roles") List<Role> roles*/) {
+
+        System.out.println("enter save (new - POST) method of controller");
+        System.out.println(user);
+//        roles.stream().forEach(System.out::println);
+
+//        user.setRoles((Set<Role>) roles);
         userService.add(user);
         return "redirect:/admin";
     }

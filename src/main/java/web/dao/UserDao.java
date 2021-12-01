@@ -5,6 +5,7 @@ import web.model.Role;
 import web.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserDao {
 
@@ -13,7 +14,8 @@ public interface UserDao {
     User getUser(Long id);
     void delete(Long id);
 
-    Role getByRoleName(String roleName);
+    Role getRoleById(String id);
+    Set<Role> getAllRoles();
 
     User getByEmail(String email);
 }

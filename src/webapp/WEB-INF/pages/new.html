@@ -20,7 +20,37 @@
     <label for="password">Enter password: </label>
     <input type="text" th:field="*{password}" id="password" placeholder = "Enter password here"/>
     <br/>
-    <td>Role:</td>
+
+
+
+<!--    <div class="form-group row">-->
+        <label> Roles:
+        <!-- th:each="role:${roles}" class="check-box">
+            <input id="roles" name="roles" type="checkbox" th:value="${role.id}" th:text="${role.name}">-->
+<!--            <div class="col-sm-8">-->
+                <th:block th:each="role : ${roles}">
+                    <div>
+                        <input type="checkbox" th:field="*{roleSet}" th:text="${role.name}" th:value="${role.id}" />
+                    </div>
+                </th:block>
+<!--            </div>-->
+        </label>
+<!--    </div>-->
+
+<!--    <p>-->
+<!--        <label>Roles:-->
+<!--            <input type="checkbox" name="roles"-->
+<!--                   th:each="role : ${allRoles}"-->
+<!--                   th:text="${role.name}"-->
+<!--                   th:value="${role.id}"-->
+<!--                   th:field="*{roles}"-->
+<!--            />-->
+<!--        </label>-->
+<!--    </p>-->
+
+
+
+<!--    <td>Role:</td>
     <td>
         <select name="role">
             <option disabled>Choose the role</option>
@@ -28,7 +58,7 @@
             <option>ROLE_ADMIN</option>
             <option>ROLE_USER, ROLE_ADMIN</option>
         </select>
-    </td>
+    </td>-->
 
     <input type="submit" value="Create new user"/>
 </form>

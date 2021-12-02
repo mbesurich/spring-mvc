@@ -8,7 +8,6 @@
 <body>
 <div align="center">
     <h2>Edit User</h2>
-<!--    <form action="update" th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="POST">-->
     <form th:method="POST" th:action="@{/admin/update/{id}(id=${id})}" th:object="${user}" >
         <table border="2" cellpadding="8">
             <tr>
@@ -28,57 +27,17 @@
                 <td><input type="text" th:field="*{password}" id="password"/></td>
             </tr>
 
-<!--            <td>Role:</td>
-            <tr th:each="role : ${roleSet}">
-
-                <td> <input th:field="${role.name}" class="form-control"/>
-&lt;!&ndash;                <td> <input th:value="${role.name}" th:field="*{roleSet[${iter.index}].name}"/>&ndash;&gt;
-
-&lt;!&ndash;                <td><input type="checkbox"
-                           th:name="|roleSet[${stat.index}]|"
-                           th:value="${role.getId()}"/>
+            <tr>
+                <td align="right">
+                    <label for="roleSet">Security level: </label>
                 </td>
-                <td th:text="${role.getId()}" ></td>
                 <td>
-                    <select name="role">
-                        <option disabled>Choose the role</option>
-                        <option>ROLE_USER</option>
-                        <option>ROLE_ADMIN</option>
-                        <option>ROLE_USER, ROLE_ADMIN</option>
+                    <select style = "width: 100%" multiple request size="2" name="checkRoles" id="roleSet">
+                        <option value="ROLE_USER" selected>USER</option>
+                        <option value="ROLE_ADMIN" selected>ADMIN</option>
                     </select>
-                </td>&ndash;&gt;
-            </tr>-->
-
-            <tr>
-                <td>Role</td>
-                <td>
-                    <th:block th:each="role , stat : ${roleSet}">
-                        <input type="checkbox" th:field="*{roleSet}" name="roleSet" th:value="${role.id]}"/>
-                        <label th:text="${role.name}" ></label>
-                    </th:block>
                 </td>
             </tr>
-
-            <tr>
-
-
-            ​<​select​ ​style​="​width: 100%​" ​multiple​ ​required​ ​size​="​2​" ​name​="​roles​" ​id​="​roles​"​>
-            ​                                  ​<​option​ ​value​="​ROLE_USER​" ​selected​>​USER​</​option​>
-        ​                                  ​<​option​ ​value​="​ROLE_ADMIN​"​>​ADMIN​</​option​>
-    ​                                ​</​select​>
-            </tr>
-
-
-<!--            <td>Role:</td>
-            <td>
-                <select name="role">
-                    <option disabled>Choose the role</option>
-                    <option>ROLE_USER</option>
-                    <option>ROLE_ADMIN</option>
-                    <option>ROLE_USER, ROLE_ADMIN</option>
-                </select>
-            </td>-->
-
 
             <tr>
                 <td colspan="2"><input type="submit" value="Update"></td>

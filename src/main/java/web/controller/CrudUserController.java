@@ -42,7 +42,7 @@ public class CrudUserController {
         return "user";
     }
 
-    //    creating start------------------------------------------------------------
+//    creating start------------------------------------------------------------
     @GetMapping("/new")
     public String newUserForm(Model model) {
         model.addAttribute("user", new User());
@@ -60,19 +60,13 @@ public class CrudUserController {
             roleHashSet.add(userService.getRoleByName(role));
         }
         user.setRoleSet(roleHashSet);
-
-        System.out.println("enter save (new - POST) method of controller");
-        System.out.println(user);
-        roleHashSet.stream().forEach(s -> System.out.println("roleHashSet ---------- " + s));
-
-//        user.setRoles((Set<Role>) roles);
         userService.add(user);
         return "redirect:/admin";
     }
 
 //    creating end------------------------------------------------------------
 
-    //    updating start------------------------------------------------------------
+//    updating start------------------------------------------------------------
     @GetMapping("/edit/{id}")
     public String editUserForm(@PathVariable("id") Long id, Model model) {
         System.out.println("enter edit method of controller");
@@ -81,13 +75,13 @@ public class CrudUserController {
     }
 
     @PostMapping(value = "/update/{id}")
-    public String editUserPost(@PathVariable("id") Long id, User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            user.setId(id);
-            return "update";
+    public String editUserPost(@PathVariable("id") Long id, @ModelAttribute("user") User user, @RequestParam(value = "checkRoles") String[] checkRoles) {
+        Set<Role> roleHashSet = new HashSet<>();
+        for (String role : checkRoles) {
+            roleHashSet.add(userService.getRoleByName(role));
         }
+        user.setRoleSet(roleHashSet);
         userService.add(user);
-        model.addAttribute("user", userService.show());
         return "redirect:/admin";
     }
 //    updating end------------------------------------------------------------
@@ -95,6 +89,6 @@ public class CrudUserController {
     @GetMapping("/delete/{id}")
     public String deleteUserForm(@PathVariable("id") Long id) {
         userService.delete(id);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 }

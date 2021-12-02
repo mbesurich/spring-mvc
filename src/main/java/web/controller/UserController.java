@@ -1,14 +1,15 @@
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import web.model.Role;
+import web.model.User;
 import web.service.UserService;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -21,18 +22,18 @@ public class UserController {
     }
 
     @GetMapping("/userRole")
-    public String userStartPage(){
+    public String userStartPage(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
+        Set<Role> roles = user.getRoleSet();
+        boolean isAdmin = false;
+        for(Role role : roles) {
+            if (role.getName().equalsIgnoreCase("ROLE_ADMIN")) {
+                isAdmin = true;
+            }
+        }
+        model.addAttribute("isAdmin", isAdmin);
         return "userRole";
-    }
-
-    @GetMapping("/hello")
-    public String printWelcome(Model model) {
-        List<String> messages = new ArrayList<>();
-        messages.add("Hello!");
-        messages.add("I'm Spring MVC-SECURITY application");
-        messages.add("5.2.0 version by sep'19 ");
-        model.addAttribute("messages", messages);
-        return "hello";
     }
 
     @GetMapping("/login")

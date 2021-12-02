@@ -61,20 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/crud").access("hasAnyRole('ADMIN')").anyRequest().authenticated();
     }
 
-//    @Bean
-//    public JdbcUserDetailsManager users(DataSource dataSource) {
-//        return new JdbcUserDetailsManager(dataSource);
-//    }
-//
-//
-//    @Bean
-//    public DaoAuthenticationProvider daoAuthenticationProvider(){
-//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-//        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-//        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-//        return daoAuthenticationProvider;
-//    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();

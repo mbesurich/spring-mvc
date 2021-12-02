@@ -6,6 +6,9 @@
     <title>Edit User</title>
 </head>
 <body>
+<br>
+<h3><a href="/logout">Logout</a></h3>
+<br>
 <div align="center">
     <h2>Edit User</h2>
     <form th:method="POST" th:action="@{/admin/update/{id}(id=${id})}" th:object="${user}" >
@@ -45,10 +48,6 @@
 
         </table>
     </form>
-
-    <br>
-    <br>
-    <a th:href="@{/admin/allUsers}">Show all</a>
 </div>
 </body>
 </html>

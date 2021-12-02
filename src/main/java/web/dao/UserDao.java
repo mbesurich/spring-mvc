@@ -14,7 +14,7 @@ public interface UserDao {
     User getUser(Long id);
     void delete(Long id);
 
-    Role getRoleById(String id);
+    Role getRoleByName(String name);
     Set<Role> getAllRoles();
 
     User getByEmail(String email);

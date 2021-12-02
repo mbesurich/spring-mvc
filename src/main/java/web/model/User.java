@@ -29,7 +29,8 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany(cascade= {CascadeType.PERSIST} , fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+//    @ManyToMany(cascade= {CascadeType.PERSIST} , fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roleSet;
@@ -88,7 +89,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setRoles(Set<Role> roleSet) {
+    public void setRoleSet(Set<Role> roleSet) {
         this.roleSet = roleSet;
     }
 

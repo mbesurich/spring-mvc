@@ -15,6 +15,6 @@ public class RoleConverterForTymeleaf implements Converter<String, Role> {
     @Override
     public Role convert(String s) {
         System.out.println("---------------------RoleConverterForTymeleaf ----------------------");
-        return userDao.getRoleById(s);
+        return userDao.getRoleByName(s);
     }
 }

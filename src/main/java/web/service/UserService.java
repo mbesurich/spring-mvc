@@ -12,5 +12,5 @@ public interface UserService {
     User getUser(Long id);
     void delete(Long id);
     Set<Role> getAllRoles();
-    Role getRoleById(String id);
+    Role getRoleByName(String name);
 }

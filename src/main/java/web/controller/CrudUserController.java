@@ -9,6 +9,7 @@ import web.model.Role;
 import web.model.User;
 import web.service.UserService;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -41,7 +42,7 @@ public class CrudUserController {
         return "user";
     }
 
-//    creating start------------------------------------------------------------
+    //    creating start------------------------------------------------------------
     @GetMapping("/new")
     public String newUserForm(Model model) {
         model.addAttribute("user", new User());
@@ -53,19 +54,25 @@ public class CrudUserController {
     }
 
     @PostMapping("/save")
-    public String saveCustomer(@ModelAttribute("user") User user/*, @ModelAttribute("roles") List<Role> roles*/) {
+    public String saveCustomer(@ModelAttribute("user") User user, @RequestParam(value = "checkRoles") String[] checkRoles) {
+        Set<Role> roleHashSet = new HashSet<>();
+        for (String role : checkRoles) {
+            roleHashSet.add(userService.getRoleByName(role));
+        }
+        user.setRoleSet(roleHashSet);
 
         System.out.println("enter save (new - POST) method of controller");
         System.out.println(user);
-//        roles.stream().forEach(System.out::println);
+        roleHashSet.stream().forEach(s -> System.out.println("roleHashSet ---------- " + s));
 
 //        user.setRoles((Set<Role>) roles);
         userService.add(user);
         return "redirect:/admin";
     }
+
 //    creating end------------------------------------------------------------
 
-//    updating start------------------------------------------------------------
+    //    updating start------------------------------------------------------------
     @GetMapping("/edit/{id}")
     public String editUserForm(@PathVariable("id") Long id, Model model) {
         System.out.println("enter edit method of controller");

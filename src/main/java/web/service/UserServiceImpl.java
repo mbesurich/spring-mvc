@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDao.show();
     }
 
+    @Transactional
     @Override
     public User getUser(Long id) {
         return userDao.getUser(id);
@@ -55,9 +56,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userDao.getAllRoles();
     }
 
+    @Transactional
     @Override
-    public Role getRoleById(String id) {
-        return userDao.getRoleById(id);
+    public Role getRoleByName(String name) {
+        return userDao.getRoleByName(name);
     }
 
     @Transactional

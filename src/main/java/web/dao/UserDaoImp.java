@@ -35,6 +35,7 @@ public class UserDaoImp implements UserDao{
             transaction.begin();
 
             if (user.getId() == null) {
+                System.out.println("UserDaoImp - em.persist(user);");
                 em.persist(user);
             } else {
                 em.merge(user);
@@ -121,7 +122,7 @@ public class UserDaoImp implements UserDao{
     }
 
     @Override
-    public Role getRoleById(String id) {
+    public Role getRoleByName(String name) {
         EntityManager em = null;
         EntityTransaction transaction = null;
         Role role = null;
@@ -131,7 +132,7 @@ public class UserDaoImp implements UserDao{
             transaction.begin();
 
             TypedQuery<Role> query = em.createQuery("SELECT r FROM Role r WHERE r.name LIKE :name", Role.class);
-            query.setParameter("name", id);
+            query.setParameter("name", name);
             role = query.getSingleResult();
 
 

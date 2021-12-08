@@ -24,19 +24,19 @@ public class CrudUserController {
 
     @GetMapping
     public String admin(Model model) {
-        model.addAttribute("users", userService.show());
+        model.addAttribute("users", userService.getAllUsers());
         return "admin";
     }
 
     @GetMapping(value = "/allUsers")
     public String allUsers(Model model) {
-        model.addAttribute("users", userService.show());
+        model.addAttribute("users", userService.getAllUsers());
         return "users";
     }
 
     @GetMapping("/user/{id}")
     public String showUserForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "user";
     }
 
@@ -55,13 +55,13 @@ public class CrudUserController {
             roleHashSet.add(userService.getRoleByName(role));
         }
         user.setRoleSet(roleHashSet);
-        userService.add(user);
+        userService.addUser(user);
         return "redirect:/admin";
     }
 
     @GetMapping("/edit/{id}")
     public String editUserForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "update";
     }
 
@@ -72,13 +72,13 @@ public class CrudUserController {
             roleHashSet.add(userService.getRoleByName(role));
         }
         user.setRoleSet(roleHashSet);
-        userService.add(user);
+        userService.addUser(user);
         return "redirect:/admin";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUserForm(@PathVariable("id") Long id) {
-        userService.delete(id);
+        userService.deleteUserById(id);
         return "redirect:/admin";
     }
 }

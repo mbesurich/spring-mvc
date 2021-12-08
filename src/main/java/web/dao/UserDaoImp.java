@@ -23,7 +23,9 @@ public class UserDaoImp implements UserDao{
 
     @Override
     public List<User> getAllUsers() {
-        return em.createQuery("SELECT u FROM User u").getResultList();
+        List<User> users = em.createQuery("SELECT u FROM User u").getResultList();
+        users.size();
+        return users;
     }
 
     @Override

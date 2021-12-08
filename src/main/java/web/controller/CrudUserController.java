@@ -2,6 +2,7 @@ package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import web.model.Role;
@@ -22,22 +23,11 @@ public class CrudUserController {
         this.userService = userService;
     }
 
+    @Transactional
     @GetMapping
     public String admin(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "admin";
-    }
-
-    @GetMapping(value = "/allUsers")
-    public String allUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "users";
-    }
-
-    @GetMapping("/user/{id}")
-    public String showUserForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "user";
     }
 
     @GetMapping("/new")

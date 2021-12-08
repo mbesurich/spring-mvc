@@ -40,14 +40,11 @@ public class CrudUserController {
         return "user";
     }
 
-//    creating start------------------------------------------------------------
     @GetMapping("/new")
     public String newUserForm(Model model) {
         model.addAttribute("user", new User());
-
         Set<Role> roles = userService.getAllRoles();
         model.addAttribute("roles", roles);
-
         return "new";
     }
 
@@ -61,12 +58,9 @@ public class CrudUserController {
         userService.add(user);
         return "redirect:/admin";
     }
-//    creating end------------------------------------------------------------
 
-//    updating start------------------------------------------------------------
     @GetMapping("/edit/{id}")
     public String editUserForm(@PathVariable("id") Long id, Model model) {
-        System.out.println("enter edit method of controller");
         model.addAttribute("user", userService.getUser(id));
         return "update";
     }
@@ -81,7 +75,6 @@ public class CrudUserController {
         userService.add(user);
         return "redirect:/admin";
     }
-//    updating end------------------------------------------------------------
 
     @GetMapping("/delete/{id}")
     public String deleteUserForm(@PathVariable("id") Long id) {

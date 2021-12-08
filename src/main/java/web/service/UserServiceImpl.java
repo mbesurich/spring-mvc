@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-//@EnableTransactionManagement(proxyTargetClass = true)
 @EnableTransactionManagement
 public class UserServiceImpl implements UserService, UserDetailsService {
 
@@ -77,6 +76,5 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw new UsernameNotFoundException(email + "is not found");
         }
         return user;
-//        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getAuthorities());
     }
 }

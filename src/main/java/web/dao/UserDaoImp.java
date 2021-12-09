@@ -1,5 +1,6 @@
 package web.dao;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import web.model.User;
 
@@ -23,9 +24,7 @@ public class UserDaoImp implements UserDao{
 
     @Override
     public List<User> getAllUsers() {
-        List<User> users = em.createQuery("SELECT u FROM User u").getResultList();
-        users.size();
-        return users;
+        return em.createQuery("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roleSet").getResultList();
     }
 
     @Override

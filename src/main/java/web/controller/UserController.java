@@ -35,13 +35,4 @@ public class UserController {
         model.addAttribute("isAdmin", isAdmin);
         return "userRole";
     }
-
-    @GetMapping("/login")
-    public String login (@RequestParam(value = "error", required = false) String error) {
-        if (error != null) {
-            return "error";
-        } else {
-            return "login";
-        }
-    }
 }

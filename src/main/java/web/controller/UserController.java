@@ -21,7 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/userRole")
+    @GetMapping("/user")
     public String userStartPage(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
@@ -33,6 +33,6 @@ public class UserController {
             }
         }
         model.addAttribute("isAdmin", isAdmin);
-        return "userRole";
+        return "user";
     }
 }

@@ -10,6 +10,8 @@
     <h2>admin page</h2>
     <h3><a href="/logout">Logout</a></h3>
     <h3><a href="/admin/new">New User</a></h3>
+    <h3><a th:href="@{/user}">My page</a></h3>
+
     <table border="1" cellpadding="5">
         <thead>
         <tr>
@@ -36,9 +38,7 @@
                 <a th:href="@{/admin/edit/{id}(id=${user.id})}">Edit</a>
                 <a th:href="@{/admin/delete/{id}(id=${user.id})}">Delete</a>
             </td>
-
         </tr>
-        <a th:href="@{/userRole}">My page</a>
         </tbody>
     </table>
 </div>

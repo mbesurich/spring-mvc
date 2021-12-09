@@ -14,18 +14,18 @@ import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
-public class CrudUserController {
+public class AdminController {
 
     private UserService userService;
 
     @Autowired
-    public CrudUserController(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
     @Transactional
     @GetMapping
-    public String admin(Model model) {
+    public String showAllUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "admin";
     }
@@ -39,12 +39,8 @@ public class CrudUserController {
     }
 
     @PostMapping("/save")
-    public String saveCustomer(@ModelAttribute("user") User user, @RequestParam(value = "checkRoles") String[] checkRoles) {
-        Set<Role> roleHashSet = new HashSet<>();
-        for (String role : checkRoles) {
-            roleHashSet.add(userService.getRoleByName(role));
-        }
-        user.setRoleSet(roleHashSet);
+    public String newUserPost(@ModelAttribute("user") User user, @RequestParam(value = "checkRoles") String[] checkRoles) {
+        user.setRoleSet(ConvertStringToRolesFromDB(checkRoles));
         userService.addUser(user);
         return "redirect:/admin";
     }
@@ -57,11 +53,7 @@ public class CrudUserController {
 
     @PostMapping(value = "/update/{id}")
     public String editUserPost(@PathVariable("id") Long id, @ModelAttribute("user") User user, @RequestParam(value = "checkRoles") String[] checkRoles) {
-        Set<Role> roleHashSet = new HashSet<>();
-        for (String role : checkRoles) {
-            roleHashSet.add(userService.getRoleByName(role));
-        }
-        user.setRoleSet(roleHashSet);
+        user.setRoleSet(ConvertStringToRolesFromDB(checkRoles));
         userService.addUser(user);
         return "redirect:/admin";
     }
@@ -70,5 +62,20 @@ public class CrudUserController {
     public String deleteUserForm(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
         return "redirect:/admin";
+    }
+
+    private Set<Role> ConvertStringToRolesFromDB(String[] checkRoles) {
+        Set<Role> allRoles = userService.getAllRoles();
+        Set<Role> roleHashSet = new HashSet<>();
+        for (String rolesFromParam : checkRoles) {
+            roleHashSet.add(
+                    allRoles
+                            .stream()
+                            .filter(r -> r.getName().equals(rolesFromParam))
+                            .findFirst()
+                            .get()
+            );
+        }
+        return roleHashSet;
     }
 }

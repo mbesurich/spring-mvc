@@ -13,16 +13,19 @@ import java.util.List;
 @EnableTransactionManagement
 public class CarServiceImp implements CarService{
 
-    @Autowired
+
     private CarDAO carDAO;
 
-    @Transactional(readOnly = true)
+    @Autowired
+    public CarServiceImp(CarDAO carDAO) {
+        this.carDAO = carDAO;
+    }
+
     @Override
     public List<Car> showSomeCars(int quantity) {
         return carDAO.showSomeCars(quantity);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Car> showAllCars() {
         return carDAO.showAllCars();

@@ -54,7 +54,8 @@ public class AdminController {
     @PostMapping(value = "/update/{id}")
     public String editUserPost(@PathVariable("id") Long id, @ModelAttribute("user") User user, @RequestParam(value = "checkRoles") String[] checkRoles) {
         user.setRoleSet(ConvertStringToRolesFromDB(checkRoles));
-        userService.addUser(user);
+//        userService.addUser(user);
+        userService.update(user);
         return "redirect:/admin";
     }
 

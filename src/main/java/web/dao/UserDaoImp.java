@@ -15,11 +15,18 @@ public class UserDaoImp implements UserDao{
 
     @Override
     public void addUser(User user) {
-        if (user.getId() == null) {
-            em.persist(user);
-        } else {
-            em.merge(user);
-        }
+        em.persist(user);
+    }
+//        if (user.getId() == null) {
+//            em.persist(user);
+//        } else {
+//            em.merge(user);
+//        }
+//    }
+
+    @Override
+    public void update(User user) {
+        em.merge(user);
     }
 
     @Override

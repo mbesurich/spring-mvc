@@ -16,15 +16,15 @@ public class RoleDaoImp implements RoleDao{
 
     @Override
     public Role getRoleByName(String name) {
-        return (Role) em
-                .createQuery("SELECT r FROM Role r WHERE r.name LIKE :role")
+        return em
+                .createQuery("SELECT r FROM Role r WHERE r.name LIKE :role", Role.class)
                 .setParameter("role", name)
                 .getSingleResult();
     }
 
     @Override
     public Set<Role> getAllRoles() {
-        return new HashSet<Role>(em.createQuery("SELECT r FROM Role r").getResultList());
+        return new HashSet<Role>(em.createQuery("SELECT r FROM Role r", Role.class).getResultList());
     }
 
 }

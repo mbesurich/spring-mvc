@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-@EnableTransactionManagement
+//@EnableTransactionManagement
+@Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private UserDao userDao;
@@ -28,50 +29,50 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.roleDao = roleDao;
     }
 
-    @Transactional
-    @Override
+//    @Transactional
+//    @Override
     public void addUser(User user) {
         userDao.addUser(user);
     }
 
-    @Transactional
-    @Override
+//    @Transactional
+//    @Override
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
 
-    @Transactional
-    @Override
+//    @Transactional
+//    @Override
     public User getUserById(Long id) {
         return userDao.getUserById(id);
     }
 
-    @Transactional
-    @Override
+//    @Transactional
+//    @Override
     public void deleteUserById(Long id) {
         userDao.deleteUserById(id);
     }
 
-    @Transactional
-    @Override
+//    @Transactional
+//    @Override
     public Set<Role> getAllRoles() {
         return roleDao.getAllRoles();
     }
 
-    @Transactional
-    @Override
+//    @Transactional
+//    @Override
     public Role getRoleByName(String name) {
         return roleDao.getRoleByName(name);
     }
 
-    @Transactional
-    @Override
+//    @Transactional
+//    @Override
     public User getUserByEmail(String email) {
         return userDao.getUserByEmail(email);
     }
 
-    @Transactional
-    @Override
+//    @Transactional
+//    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userDao.getUserByEmail(email);
         System.out.println(user);

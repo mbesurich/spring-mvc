@@ -33,43 +33,6 @@ public class HiberConfig {
     @Autowired
     private Environment env;
 
-    /*@Bean
-    LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean emf =
-                new LocalContainerEntityManagerFactoryBean();
-        emf.setPackagesToScan("web");
-        emf.setDataSource(getDataSource());
-        emf.setJpaVendorAdapter(getJpaVendorAdapter());
-        emf.setJpaProperties(getHibernateProperties());
-        emf.afterPropertiesSet();
-        return emf;
-    }
-
-    private DataSource getDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("db.driver")));
-        dataSource.setUrl(env.getProperty("db.url"));
-        dataSource.setUsername(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password"));
-        return dataSource;
-    }
-
-    private JpaVendorAdapter getJpaVendorAdapter() {
-        return new HibernateJpaVendorAdapter();
-    }
-
-    private Properties getHibernateProperties() {
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        return properties;
-    }
-
-    @Bean
-    PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-        return new JpaTransactionManager(emf);
-    }*/
-
     @Bean
     public DataSource getDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

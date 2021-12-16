@@ -9,7 +9,6 @@ import web.model.Role;
 import web.model.User;
 import web.service.UserService;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Controller
@@ -40,7 +39,7 @@ public class AdminController {
 
     @PostMapping("/save")
     public String newUserPost(@ModelAttribute("user") User user, @RequestParam(value = "checkRoles") String[] checkRoles) {
-        user.setRoleSet(ConvertStringToRolesFromDB(checkRoles));
+        user.setRoleSet(userService.getRolesByNames(checkRoles));
         userService.addUser(user);
         return "redirect:/admin";
     }
@@ -53,8 +52,7 @@ public class AdminController {
 
     @PostMapping(value = "/update/{id}")
     public String editUserPost(@PathVariable("id") Long id, @ModelAttribute("user") User user, @RequestParam(value = "checkRoles") String[] checkRoles) {
-        user.setRoleSet(ConvertStringToRolesFromDB(checkRoles));
-//        userService.addUser(user);
+        user.setRoleSet(userService.getRolesByNames(checkRoles));
         userService.update(user);
         return "redirect:/admin";
     }
@@ -63,20 +61,5 @@ public class AdminController {
     public String deleteUserForm(@PathVariable("id") Long id) {
         userService.deleteUserById(id);
         return "redirect:/admin";
-    }
-
-    private Set<Role> ConvertStringToRolesFromDB(String[] checkRoles) {
-        Set<Role> allRoles = userService.getAllRoles();
-        Set<Role> roleHashSet = new HashSet<>();
-        for (String rolesFromParam : checkRoles) {
-            roleHashSet.add(
-                    allRoles
-                            .stream()
-                            .filter(r -> r.getName().equals(rolesFromParam))
-                            .findFirst()
-                            .get()
-            );
-        }
-        return roleHashSet;
     }
 }
